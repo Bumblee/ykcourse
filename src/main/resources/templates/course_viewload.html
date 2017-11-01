@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <title>material</title>
+
+    <link rel="stylesheet" href="../static/css/material.min.css" th:href="@{/css/material.min.css}" />
+    <link rel="stylesheet" href="../static/css/material-icons.css" th:href="@{/css/material-icons.css}" />
+    <link rel="stylesheet" href="../static/css/course.css" th:href="@{/css/course.css}" />
+    <link rel="stylesheet" href="../static/css/Wxine.css" th:href="@{/css/Wxine.css}" />
+    <link rel="stylesheet" href="../static/css/event_form.css" th:href="@{/css/event_form.css}" />
+
+
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+        <div class="mdl-layout__drawer left-list" >
+            <span class="mdl-layout-title" id="shit">Java创意项目开发</span>
+            
+            <!-- <nav class="mdl-navigation">
+                <a class="mdl-navigation__link  big-mdl big-big" href="javascript:void(0);" >介绍</a>
+                <a class="mdl-navigation__link big-mdl big-big" href="javascript:void(0);" >1. 快速上手</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">1.1 ASP.NET Core</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">1.2 ASP.NET 4</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">1.3 Knockout.js</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">1.4 从JavaScript迁移到TypeScript</a>
+                <a class="mdl-navigation__link big-mdl big-big" href="javascript:void(0);">2. 新增功能</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">2.1 ASP.NET Core</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">2.2 ASP.NET 4</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">2.3 Knockout.js</a>
+                <a class="mdl-navigation__link" href="javascript:void(0);">2.4 从JavaScript迁移到TypeScript</a>
+            </nav> -->
+            <form action="#" class="coul-form">
+              <div class="mdl-grid">
+                <button class="mdl-cell mdl-cell--6-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="reset" value="Reset">重置</button>
+                <button class="mdl-cell mdl-cell--6-col mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">保存</button>
+              </div>
+              <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield coule-bigtit">
+                  <input class="mdl-textfield__input p-0" type="text" id="sample1">
+                  <label class="mdl-textfield__label t-10" for="sample1">Text...</label>
+                </div>
+              </div>
+              <div class="mdl-grid">
+                <span class="tit-befo">1</span>
+                <div class="mdl-textfield mdl-js-textfield coule-tit">
+                  <input class="mdl-textfield__input p-0" type="text" id="sample2">
+                  <label class="mdl-textfield__label t-10" for="sample2">Text...</label>
+                </div>
+              </div>
+              <div class="mdl-grid">
+                <span class="tit-befo">1.1</span>
+                <div class="mdl-textfield mdl-js-textfield coule-con">
+                  <input class="mdl-textfield__input p-0" type="text" id="sample3">
+                  <label class="mdl-textfield__label t-10" for="sample3">Text...</label>
+                </div>
+              </div>
+              <div class="mdl-grid">
+                <span class="tit-befo">1.2</span>
+                <div class="mdl-textfield mdl-js-textfield coule-con">
+                  <input class="mdl-textfield__input p-0" type="text" id="sample4">
+                  <label class="mdl-textfield__label t-10" for="sample4">Text...</label>
+                </div>
+              </div>
+
+            </form>
+        </div>
+    </div>
+<script src="../static/js/jquery-3.0.0.min.js" th:src="@{/js/jquery-3.0.0.min.js}"></script> 
+<script src="../static/js/material.min.js" th:src="@{/js/material.min.js}"></script>
+<script type="text/javascript">
+$(".hidden-left").click(function(){
+  $(".left-list").toggleClass("l-240");
+  $(".mdl-layout__content").toggleClass("ml0");
+});
+$(".couvi-new").click(function(){
+  $(".cvi-direction").toggleClass("hidden-on");
+});
+$(".couvi_cancel").click(function(){
+  $(".cvi-direction").toggleClass("hidden-on");
+});
+$(".couvi_close").click(function(){
+  $(".cvi-direction").toggleClass("hidden-on");
+});
+</script>
+<script src="../static/js/editormd/editormd.min.js" th:src="@{/js/editormd/editormd.min.js}"></script>
+<link rel="stylesheet" href="../static/js/editormd/css/editormd.min.css" th:href="@{/js/editormd/css/editormd.min.css}" />
+<script type="text/javascript">
+$(function() {
+  $(".couvi-new").click(function(){
+      $(".coursevi_form").slideToggle();
+    });
+    $(".couvi_cancel").click(function(){
+      $(".coursevi_form").slideToggle();
+    });
+    $(".couvi_close").click(function(){
+      $(".coursevi_form").slideToggle();
+    });
+  Messenger.options = {
+  extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+  theme: 'block'
+  }
+    $(document).on("click", "[name='btn_markdown_submit']", function() {
+        var form = $(this).parents("form");
+        $.post(form.attr("action"), form.serialize(), function(json) {
+            if (json.result == "success") {
+              console.log(json);
+                $.globalMessenger().post({
+                    message: "操作成功",
+                    type: "error",
+                    hideAfter: 2
+                });
+               /*  $("#aaa").before('<div class="itmename">'+json.data.name+'</div>');
+        $("#aaa").before('<a class="line" href="/course/'+json.id+'">'+json.data.name+'</a>');
+        $("#aaa").before('<a href="/course/'+json.id+'/delete/" class="delete">删除</a>');
+        $("#aaa").before('<a href="/courseupdate/'+json.id+'" class="update">编辑</a>');  */
+                setTimeout(function(){
+                 window.location.href = "/course";
+               },1000);
+            } else {
+                $.each(json, function(i, val) {
+                    if (i != "result") {
+                        if ($("[data-error='" + i + "']").length)
+                            $("[data-error='" + i + "']").html(val);
+                        else {
+                            $.globalMessenger().post({
+                                message: val,
+                                type: "error",
+                                hideAfter: 3
+                            });
+                        }
+                    }
+                });
+            }
+        }, "json");
+    });
+});
+$(document).on("click", "[name='switch_edit_content']", function() {
+    var form = $(this).parents("form");
+    var edit_content = form.find("[name='edit_content']").val();
+    var edit_markdown = form.find("[name='edit_markdown']").val();
+    var mdurl = $(this).data("mdurl");
+    var cturl = $(this).data("cturl");
+    if ($(this).data("type") == "markdown") {
+      form.find("[name='div_content_load']").load(mdurl, function(){
+        form.find("[name='markdown']").val(edit_markdown).slideDown();
+      });
+      $(this).data("type", "content");
+      $(this).html("切换到正常编辑模式");
+    } else {
+      form.find("[name='div_content_load']").load(cturl, function(){
+        form.find("[name='content']").val(edit_content).slideDown();
+      });
+      $(this).data("type", "markdown");
+      $(this).html("切换到Markdown编辑模式");
+      $("html,body").animate({scrollTop:$("#rsyncbox").offset().top-200},1000);
+    }
+});
+$("body").on("click",".delete",function (event) {
+  event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+  $.post($(this).attr("href"),  function(json) {
+    if (json.result == "success") {
+      $.globalMessenger().post({
+      message: "操作成功",
+      type: "error",
+      hideAfter: 2
+      });
+    } 
+    setTimeout(function(){
+      window.location.href = "/course";
+    },1000);
+  }, "json");
+});
+</script>
+</body>
+</html>

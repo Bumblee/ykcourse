@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <title>material</title>
+
+    <link rel="stylesheet" href="../static/css/material.min.css" th:href="@{/css/material.min.css}" />
+    <link rel="stylesheet" href="../static/css/material-icons.css" th:href="@{/css/material-icons.css}" />
+    <link rel="stylesheet" href="../static/css/course.css" th:href="@{/css/course.css}" />
+    <link rel="stylesheet" href="../static/css/Wxine.css" th:href="@{/css/Wxine.css}" />
+    <link rel="stylesheet" href="../static/css/event_form.css" th:href="@{/css/event_form.css}" />
+
+
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer po-ab">
+        <div class="mdl-layout__drawer left-list" >
+            <span class="mdl-layout-title" id="shit" th:text="${course?.name}"></span>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" name="edit" th:id="${course?.id}" th:href="@{'/lessons/'+${course?.id}+'/edit/'}">编辑模式</button>
+            <nav class="mdl-navigation edit">
+            	<div th:each="lesson : ${lessons?.items}">
+            		<a class="mdl-navigation__link big-mdl big-big" name="details" th:data-name="${lesson?.name}" th:data-id="${lesson?.id}" th:data-url="'/course/'+${course?.id}+'/lesson/'+${lesson?.id}" th:href="@{'/course/'+${course?.id}+'/lesson/'+${lesson?.id}}" >
+            			<div class="lessonname" th:text="${lesson?.name}"></div>
+	                		<a class="del"  href="#" th:href="@{'/course/'+${course?.id}+'/lesson/'+${lesson?.id}+'/delete/'}">删除</a>
+            		</a>
+	                <!-- <a class="mdl-navigation__link big-mdl big-big" href="javascript:void(0);" >1. 快速上手</a>
+	                <a class="mdl-navigation__link" href="javascript:void(0);">1.1 ASP.NET Core</a>
+	                <a class="mdl-navigation__link big-mdl big-big" href="javascript:void(0);">2. 新增功能</a>
+	                <a class="mdl-navigation__link" href="javascript:void(0);">2.1 ASP.NET Core</a> -->
+                </div>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            
+            <div class="page-content">
+                <header class="bookHead">
+                    <nav class="mdl-navigation">
+                        <a class="mdl-navigation__link hidden-left" href="javascript:void(0);"><i class="material-icons">list</i></a>
+                        <a class="mdl-navigation__link tim-10" href="javascript:void(0);"><i class="material-icons">search</i></a>
+                        <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons">font_download</i></a>
+                    </nav>
+                    <nav class="mdl-navigation">
+                        <button id="editBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect couvi-new" th:data-url="'/course/'+${course?.id}+'/lesson/'">
+                          <i class="material-icons">mode_edit</i>
+                        </button>
+                    </nav>
+                    <h1 class="bookHeadMiddleFont">
+                        <span th:text="${course?.name}"></span>
+                    </h1>
+                </header>
+                <div class="page-wrapper">
+                    <a class="navigation navigation-prev cvi-direction">
+                        <i class="material-icons">chevron_left</i>
+                    </a>
+                    <a class="navigation navigation-next cvi-direction">
+                        <i class="material-icons">chevron_right</i>
+                    </a>
+                    <div class="page-inner">
+                        <div class="mdl-grid" style="max-width: 800px;">
+                            <mian class="mdl-cell mdl-cell--12-col">
+                                <section class="main_content" th:text="${course?.markdown}"></section>
+                            </mian>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+<script src="../static/js/jquery-3.0.0.min.js" th:src="@{/js/jquery-3.0.0.min.js}"></script> 
+<script src="../static/js/material.min.js" th:src="@{/js/material.min.js}"></script>
+<script src="../static/js/messenger/messenger.min.js" th:src="@{/js/messenger/messenger.min.js}"></script>
+<link href="../static/js/messenger/messenger.css" th:href="@{/js/messenger/messenger.css}" rel="stylesheet" type="text/css" />
+<script src="../static/js/messenger/messenger-theme-future.js" th:src="@{/js/messenger/messenger-theme-future.js}"></script>
+<link href="../static/js/messenger/messenger-theme-block.css" th:href="@{/js/messenger/messenger-theme-block.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(function() {
+	//按钮操作后成功或是失败后消息显示的位置
+	Messenger.options = {
+	        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+	        theme: 'block'
+	}
+	//左侧菜单栏的显示隐藏
+	$(".hidden-left").click(function(){
+		$(".left-list").toggleClass("l-240");
+		$(".mdl-layout__content").toggleClass("ml0");
+	});
+	//删除按钮点击
+	$("body").on("click",".del",function (event) {
+		event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+		$.post($(this).attr("href"),  function(json) {
+	        if (json.result == "success") {
+	        	console.log(json);
+	        	$.globalMessenger().post({
+	                message: "操作成功",
+	                type: "error",
+	                hideAfter: 2
+	            });
+	        } 
+	        setTimeout(function(){
+	        	window.location.reload();
+	       },1000);
+	        
+	    }, "json");
+	});
+	//点击加载章节的详细内容
+	$("[name='details']").on("click",function(){
+		event.preventDefault();
+		var self = this;
+		$(".main_content").load($(this).attr("data-url"), function(){  
+			$("#editBtn").attr("data-id",$(self).attr("data-id"));
+			$(".main_content").slideDown();			
+		}); 
+		$('.bookHeadMiddleFont').html($(this).attr("data-name"));
+	});
+	//点击修改章节的详细内容
+	$(".couvi-new").on("click",function(){
+		event.preventDefault();
+		if($(this).attr("data-id")!=null){
+			$(".page-wrapper").load($(this).attr("data-url")+$(this).attr("data-id")+"/edit/content", function(){  
+				$(".page-wrapper").slideDown();			
+			});
+		}else{
+			$.globalMessenger().post({
+                message: "没有内容进行修改",
+                type: "error",
+                hideAfter: 2
+            });
+		} 
+	});
+	//编辑模式按钮的点击
+	$("[name='edit']").on("click",function(){
+		event.preventDefault();
+		$(".mdl-navigation.edit").load("/lessons/" + $(this).attr("id")+"/edit", function(){  
+			$(".mdl-navigation.edit").slideDown();
+		}); 
+	});
+});
+</script>
+</html>

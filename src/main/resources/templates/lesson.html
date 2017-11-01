@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+
+<body>
+    <div th:text="${lesson?.markdown}"></div>
+    <div id="lesson_markdown" >
+        <!-- <textarea style="display:none;" th:inline="text">[[${lesson?.markdown}]]</textarea> -->
+    </div>
+</body>
+<script src="../static/js/jquery-3.0.0.min.js" th:src="@{/js/jquery-3.0.0.min.js}"></script>
+<script src="../static/js/editormd/lib/marked.min.js" th:src="@{/js/editormd/lib/marked.min.js}"></script>
+<script src="../static/js/editormd/lib/prettify.min.js" th:src="@{/js/editormd/lib/prettify.min.js}"></script>
+<script src="../static/js/editormd/lib/raphael.min.js" th:src="@{/js/editormd/lib/raphael.min.js}"></script>
+<script src="../static/js/editormd/lib/underscore.min.js" th:src="@{/js/editormd/lib/underscore.min.js}"></script>
+<script src="../static/js/editormd/lib/sequence-diagram.min.js" th:src="@{/js/editormd/lib/sequence-diagram.min.js}"></script>
+<script src="../static/js/editormd/lib/flowchart.min.js" th:src="@{/js/editormd/lib/flowchart.min.js}"></script>
+<script src="../static/js/editormd/lib/jquery.flowchart.min.js" th:src="@{/js/editormd/lib/jquery.flowchart.min.js}"></script>
+<script src="../static/js/editormd/editormd.min.js" th:src="@{/js/editormd/editormd.min.js}"></script>
+<link rel="stylesheet" href="../static/js/editormd/css/editormd.min.css" th:href="@{/js/editormd/css/editormd.min.css}" />
+
+</html>

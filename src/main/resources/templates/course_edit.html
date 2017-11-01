@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>   
+        <form action="#" th:action="@{'/course/'+${course?.id}}" method="post">
+            课程名称：
+            <input type="text" id="name" name="name" th:value="${course?.name}"/>
+            <div data-error="name"></div>
+            课程介绍：
+            <div id="editormd" style="z-index: 50;" >
+                <textarea id="markdown" name="markdown" style="display:none;">[[${course?.markdown}]]</textarea>
+            </div>
+            <div data-error="markdown"></div>
+            <button name="btn_submit" type="button">提交</button>
+        </form>
+    </div>
+</body>
+<script src="../static/js/jquery-3.0.0.min.js" th:src="@{/js/jquery-3.0.0.min.js}"></script>
+<script src="../static/js/messenger/messenger.min.js" th:src="@{/js/messenger/messenger.min.js}"></script>
+<link href="../static/js/messenger/messenger.css" th:href="@{/js/messenger/messenger.css}" rel="stylesheet" type="text/css" />
+<script src="../static/js/messenger/messenger-theme-future.js" th:src="@{/js/messenger/messenger-theme-future.js}"></script>
+<link href="../static/js/messenger/messenger-theme-block.css" th:href="@{/js/messenger/messenger-theme-block.css}" rel="stylesheet" type="text/css" />
+<script src="../static/js/editormd/editormd.min.js" th:src="@{/js/editormd/editormd.min.js}"></script>
+<link rel="stylesheet" href="../static/js/editormd/css/editormd.min.css" th:href="@{/js/editormd/css/editormd.min.css}" />
+<script>
+$(function() {
+
+    Messenger.options = {
+        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+        theme: 'block'
+    }
+
+    var editor = editormd("editormd", {
+        width: "100%",
+        height: 500,
+        syncScrolling: "single",
+        path: "[[@{/js/editormd/lib/}]]"
+    });
+
+    $(document).on("click", "[name='btn_submit']", function() {
+        var form = $(this).parents("form");
+        $.post(form.attr("action"), form.serialize(), function(json) {
+            if (json.result == "success") {
+            	console.log(json);
+                $.globalMessenger().post({
+                    message: "操作成功",
+                    type: "error",
+                    hideAfter: 2
+                });
+                setTimeout(function(){
+               	 window.location.href = "/courses";
+               },1000);
+            } else {
+                $.each(json, function(i, val) {
+                    if (i != "result") {
+                        if ($("[data-error='" + i + "']").length)
+                            $("[data-error='" + i + "']").html(val);
+                        else {
+                            $.globalMessenger().post({
+                                message: val,
+                                type: "error",
+                                hideAfter: 3
+                            });
+                        }
+                    }
+                });
+            }
+        }, "json");
+    });
+});
+</script>
+</html>
